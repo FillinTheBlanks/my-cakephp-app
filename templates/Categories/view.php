@@ -35,6 +35,48 @@
                     <td><?= h($category->modified) ?></td>
                 </tr>
             </table>
+            <div class="related">
+                <h4><?= __('Related Blog Posts') ?></h4>
+                <?php if (!empty($category->blog_posts)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Content') ?></th>
+                            <th><?= __('MetaField') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($category->blog_posts as $blogPost) : ?>
+                        <tr>
+                            <td><?= h($blogPost->id) ?></td>
+                            <td><?= h($blogPost->title) ?></td>
+                            <td><?= h($blogPost->content) ?></td>
+                            <td>
+                                <?php if ($blogPost->meta_fields): ?>
+                                    <ul>
+                                        <?php foreach($blogPost->meta_fields as $meta_field) : ?>
+                                            <li><?= $meta_field->meta_key ?>: <?= $meta_field->meta_value ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= h($blogPost->created) ?></td>
+                            <td><?= h($blogPost->modified) ?></td>
+                            
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'BlogPosts', 'action' => 'view', $blogPost->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'BlogPosts', 'action' => 'edit', $blogPost->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'BlogPosts', 'action' => 'delete', $blogPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $blogPost->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>

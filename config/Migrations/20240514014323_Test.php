@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class BlogPostsadd2col extends AbstractMigration
+class Test extends AbstractMigration
 {
     /**
      * Change Method.
@@ -14,5 +14,8 @@ class BlogPostsadd2col extends AbstractMigration
      */
     public function change(): void
     {
+        $testTable = $this->table('test');
+        $testTable->addColumn('name','string');
+        $testTable->create();
     }
 }

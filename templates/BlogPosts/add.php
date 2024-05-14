@@ -18,9 +18,13 @@
             <fieldset>
                 <legend><?= __('Add Blog Post') ?></legend>
                 <?php
-                    echo $this->Form->control('category_id', ['options' => $categories]);
                     echo $this->Form->control('title');
                     echo $this->Form->control('content');
+                    echo $this->Form->control('categories._ids', ['options' => $categories]);
+                    for($i=0;$i < 2; $i++){
+                        echo $this->Form->control('meta_fields.' . $i . '.meta_key');
+                        echo $this->Form->control('meta_fields.' . $i . '.meta_value');
+                    }
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

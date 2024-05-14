@@ -19,6 +19,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html>
 <head>
+    
+
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
@@ -32,6 +34,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('select').select2();
+        });
+    </script>
 </head>
 <body>
     <nav class="top-nav">
@@ -39,14 +53,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
         </div>
         <div class="top-nav-links">
-            <?= $this->Html->link('Categories',[
+            <?= 
+            $this->Html->link('Categories',[
                 'controller' => 'Categories',
                 'action' => 'index'
-            ], ['class' => 'side-nav ']) ?>
+            ], ['class' => 'side-nav']) 
+            ?>
             <?= $this->Html->link('Blog Posts',[
                 'controller' => 'BlogPosts',
                 'action' => 'index'
-            ], ['class' => 'button ']) ?>
+            ], ['class' => 'side-nav']) ?>
+            
+            <?= $this->Html->link('Meta Fields',[
+                'controller' => 'MetaFields',
+                'action' => 'index'
+            ], ['class' => 'side-nav']) ?>
+
+            <?= $this->Html->link('Articles',[
+                'controller' => 'Articles',
+                'action' => 'index'
+            ], ['class' => 'side-nav']) ?>
+            
+            <?= $this->Html->link('Tags',[
+                'controller' => 'Tags',
+                'action' => 'index'
+            ], ['class' => 'side-nav']) ?>
+            
+            <?= $this->Html->link('Users',[
+                'controller' => 'Users',
+                'action' => 'index'
+            ], ['class' => 'side-nav'])
+            ?>
         </div>
     </nav>
     <main class="main">

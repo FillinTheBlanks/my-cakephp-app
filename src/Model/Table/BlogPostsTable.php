@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
 /**
  * BlogPosts Model
  *
- * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
+ * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsToMany $Categories
  *
  * @method \App\Model\Entity\BlogPost newEmptyEntity()
  * @method \App\Model\Entity\BlogPost newEntity(array $data, array $options = [])
@@ -42,14 +42,19 @@ class BlogPostsTable extends Table
         parent::initialize($config);
 
         $this->setTable('blog_posts');
-        $this->setDisplayField('id');
+        $this->setDisplayField(['title']);
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Categories', [
-            'foreignKey' => 'category_id',
-            'joinType' => 'INNER',
+        $this->hasMany('MetaFields', [
+            'foreignKey' => 'blog_post_id',
+        ]);
+        
+        $this->belongsToMany('Categories', [
+            'foreignKey' => 'blog_post_id',
+            'targetForeignKey' => 'category_id',
+            'joinTable' => 'blog_posts_categories',
         ]);
     }
 
@@ -61,10 +66,6 @@ class BlogPostsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('category_id')
-            ->notEmptyString('category_id');
-
         $validator
             ->scalar('title')
             ->maxLength('title', 45)
@@ -78,17 +79,10 @@ class BlogPostsTable extends Table
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['category_id'], 'Categories'), ['errorField' => 'category_id']);
-
+        $rules->add($rules->validCount('categories',1,'>=','Please select at least 1 category'));
+        $rules->add($rules->isUnique(['title']));
         return $rules;
     }
 }

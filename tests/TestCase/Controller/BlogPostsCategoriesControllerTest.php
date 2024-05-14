@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\BlogPostsController;
+use App\Controller\BlogPostsCategoriesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\BlogPostsController Test Case
+ * App\Controller\BlogPostsCategoriesController Test Case
  *
- * @uses \App\Controller\BlogPostsController
+ * @uses \App\Controller\BlogPostsCategoriesController
  */
-class BlogPostsControllerTest extends TestCase
+class BlogPostsCategoriesControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,16 +22,16 @@ class BlogPostsControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.BlogPosts',
-        'app.Categories',
         'app.BlogPostsCategories',
+        'app.Categories',
+        'app.BlogPosts',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\BlogPostsController::index()
+     * @uses \App\Controller\BlogPostsCategoriesController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +42,7 @@ class BlogPostsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\BlogPostsController::view()
+     * @uses \App\Controller\BlogPostsCategoriesController::view()
      */
     public function testView(): void
     {
@@ -53,7 +53,7 @@ class BlogPostsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\BlogPostsController::add()
+     * @uses \App\Controller\BlogPostsCategoriesController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +64,7 @@ class BlogPostsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\BlogPostsController::edit()
+     * @uses \App\Controller\BlogPostsCategoriesController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +75,7 @@ class BlogPostsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\BlogPostsController::delete()
+     * @uses \App\Controller\BlogPostsCategoriesController::delete()
      */
     public function testDelete(): void
     {

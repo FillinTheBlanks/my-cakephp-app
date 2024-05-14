@@ -23,6 +23,8 @@ class CategoriesControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Categories',
+        'app.BlogPosts',
+        'app.BlogPostsCategories',
     ];
 
     /**

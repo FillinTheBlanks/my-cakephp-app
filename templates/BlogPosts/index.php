@@ -12,11 +12,10 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('category_id') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('content') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -24,11 +23,10 @@
                 <?php foreach ($blogPosts as $blogPost): ?>
                 <tr>
                     <td><?= $this->Number->format($blogPost->id) ?></td>
-                    <td><?= $blogPost->hasValue('category') ? $this->Html->link($blogPost->category->name, ['controller' => 'Categories', 'action' => 'view', $blogPost->category->id]) : '' ?></td>
-                    <td><?= h($blogPost->created) ?></td>
-                    <td><?= h($blogPost->modified) ?></td>
                     <td><?= h($blogPost->title) ?></td>
                     <td><?= h($blogPost->content) ?></td>
+                    <td><?= h($blogPost->created) ?></td>
+                    <td><?= h($blogPost->modified) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $blogPost->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $blogPost->id]) ?>

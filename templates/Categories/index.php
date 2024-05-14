@@ -13,6 +13,7 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
+                    <th>Blog Posts</th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -23,12 +24,24 @@
                 <tr>
                     <td><?= $this->Number->format($category->id) ?></td>
                     <td><?= h($category->name) ?></td>
+
+                    <td>
+                        <ul>
+                            <?php foreach ($category->blog_posts as $blogPost) : ?>
+                                <li><?= $blogPost->title ?>: 
+                                    <?php foreach ($blogPost->meta_fields as $meta_field) : ?>
+                                    <?= $meta_field->meta_key ?>
+                                    <?php endforeach; ?>
+                                </li> 
+                            <?php endforeach; ?>
+                        </ul>
+                    </td>
                     <td><?= h($category->created) ?></td>
                     <td><?= h($category->modified) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->category_id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

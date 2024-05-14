@@ -17,8 +17,7 @@ class BlogPostsController extends AppController
      */
     public function index()
     {
-        $query = $this->BlogPosts->find()
-            ->contain(['Categories']);
+        $query = $this->BlogPosts->find();
         $blogPosts = $this->paginate($query);
 
         $this->set(compact('blogPosts'));
@@ -33,7 +32,7 @@ class BlogPostsController extends AppController
      */
     public function view($id = null)
     {
-        $blogPost = $this->BlogPosts->get($id, contain: ['Categories']);
+        $blogPost = $this->BlogPosts->get($id, contain: ['Categories','MetaFields']);
         $this->set(compact('blogPost'));
     }
 
@@ -46,7 +45,12 @@ class BlogPostsController extends AppController
     {
         $blogPost = $this->BlogPosts->newEmptyEntity();
         if ($this->request->is('post')) {
-            $blogPost = $this->BlogPosts->patchEntity($blogPost, $this->request->getData());
+            $blogPost = $this->BlogPosts->patchEntity($blogPost, $this->request->getData(),[
+                'associated' => [
+                    'MetaFields' => ['validate' => 'addBlogPosts']
+                ]
+            ]);
+            
             if ($this->BlogPosts->save($blogPost)) {
                 $this->Flash->success(__('The blog post has been saved.'));
 
@@ -67,9 +71,10 @@ class BlogPostsController extends AppController
      */
     public function edit($id = null)
     {
-        $blogPost = $this->BlogPosts->get($id, contain: []);
+        $blogPost = $this->BlogPosts->get($id, contain: ['Categories']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $blogPost = $this->BlogPosts->patchEntity($blogPost, $this->request->getData());
+            
             if ($this->BlogPosts->save($blogPost)) {
                 $this->Flash->success(__('The blog post has been saved.'));
 

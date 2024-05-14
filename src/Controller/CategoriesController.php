@@ -17,7 +17,11 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $query = $this->Categories->find();
+        $query = $this->Categories->find()
+        ->leftJoinWith('BlogPosts')
+        ->distinct('Categories.id')
+        ->contain(['BlogPosts'=>['MetaFields']]);
+        
         $categories = $this->paginate($query);
 
         $this->set(compact('categories'));
@@ -32,7 +36,8 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
-        $category = $this->Categories->get($id, contain: []);
+        $category = $this->Categories->get($id, 
+        contain: ['BlogPosts' => ['MetaFields']]);
         $this->set(compact('category'));
     }
 
@@ -53,7 +58,8 @@ class CategoriesController extends AppController
             }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
-        $this->set(compact('category'));
+        $blogPosts = $this->Categories->BlogPosts->find('list', limit: 200)->all();
+        $this->set(compact('category', 'blogPosts'));
     }
 
     /**
@@ -65,7 +71,7 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
-        $category = $this->Categories->get($id, contain: []);
+        $category = $this->Categories->get($id, contain: ['BlogPosts']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
             if ($this->Categories->save($category)) {
@@ -75,7 +81,8 @@ class CategoriesController extends AppController
             }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
-        $this->set(compact('category'));
+        $blogPosts = $this->Categories->BlogPosts->find('list', limit: 200)->all();
+        $this->set(compact('category', 'blogPosts'));
     }
 
     /**

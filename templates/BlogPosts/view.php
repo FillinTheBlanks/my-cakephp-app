@@ -16,12 +16,8 @@
     </aside>
     <div class="column column-80">
         <div class="blogPosts view content">
-            <h3><?= h($blogPost->id) ?></h3>
+            <h3><?= h($blogPost->Array) ?></h3>
             <table>
-                <tr>
-                    <th><?= __('Category') ?></th>
-                    <td><?= $blogPost->hasValue('category') ? $this->Html->link($blogPost->category->name, ['controller' => 'Categories', 'action' => 'view', $blogPost->category->id]) : '' ?></td>
-                </tr>
                 <tr>
                     <th><?= __('Title') ?></th>
                     <td><?= h($blogPost->title) ?></td>
@@ -43,6 +39,66 @@
                     <td><?= h($blogPost->modified) ?></td>
                 </tr>
             </table>
+            <div class="related">
+                <h4><?= __('Related Categories') ?></h4>
+                <?php if (!empty($blogPost->categories)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Name') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($blogPost->categories as $category) : ?>
+                        <tr>
+                            <td><?= h($category->id) ?></td>
+                            <td><?= h($category->name) ?></td>
+                            <td><?= h($category->created) ?></td>
+                            <td><?= h($category->modified) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Categories', 'action' => 'view', $category->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Categories', 'action' => 'edit', $category->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Categories', 'action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+
+                <h4><?= __('Related Meta Fields') ?></h4>
+                <?php if (!empty($blogPost->meta_fields)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('MetaKey') ?></th>
+                            <th><?= __('MetaValue') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($blogPost->meta_fields as $metaField) : ?>
+                        <tr>
+                            <td><?= h($metaField->id) ?></td>
+                            <td><?= h($metaField->meta_key) ?></td>
+                            <td><?= h($metaField->meta_value) ?></td>
+                            <td><?= h($metaField->created) ?></td>
+                            <td><?= h($metaField->modified) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'MetaFields', 'action' => 'view', $metaField->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'MetaFields', 'action' => 'edit', $metaField->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'MetaFields', 'action' => 'delete', $metaField->id], ['confirm' => __('Are you sure you want to delete # {0}?', $metaField->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+
+            </div>
         </div>
     </div>
 </div>

@@ -169,6 +169,7 @@ if ($fullBaseUrl) {
 }
 unset($fullBaseUrl);
 
+Configure::write('DebugKit.safeTld', ['com', 'ddev', 'site']);
 Cache::setConfig(Configure::consume('Cache'));
 ConnectionManager::setConfig(Configure::consume('Datasources'));
 TransportFactory::setConfig(Configure::consume('EmailTransport'));

@@ -26,9 +26,11 @@ use Cake\Core\Configure;
 // This is useful when sending email from shells.
 //Configure::write('App.fullBaseUrl', php_uname('n'));
 
-Configure::write('DebugKit.panels', ['DebugKit.Packages' => false]);
-Configure::write('DebugKit.safeTld', ['dev', 'local', 'site']);
-//Configure::write('DebugKit.forceEnable', true);
+//Configure::write('DebugKit.panels', ['DebugKit.Packages' => false]);
+Configure::write('DebugKit.safeTld', ['my-cakephp-app', 'ddev', 'site']);
+Configure::write('DebugKit.forceEnable', function() {
+    return $_SERVER['REMOTE_ADDR'] === '127.0.0.1';
+});
 //Configure::write('DebugKit.ignorePathsPattern', '/\.(jpg|png|gif)$/');
 // Set logs to different files so they don't have permission conflicts.
 if (Configure::check('Log.debug')) {

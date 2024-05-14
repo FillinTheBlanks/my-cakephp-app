@@ -12,6 +12,8 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
+ *
+ * @property \App\Model\Entity\BlogPost[] $blog_posts
  */
 class Category extends Entity
 {
@@ -28,5 +30,6 @@ class Category extends Entity
         'name' => true,
         'created' => true,
         'modified' => true,
+        'blog_posts' => true,
     ];
 }
